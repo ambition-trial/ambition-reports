@@ -1,0 +1,4 @@
+[run]
+include = ambition_reports/*
+omit = ambition_reports/tests/*
+branch = 1
