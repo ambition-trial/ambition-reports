@@ -12,10 +12,11 @@ from ambition_permissions.group_names import RANDO
 
 
 class AmbitionCrfPdfReport(CrfPdfReport):
-    logo = os.path.join(settings.STATIC_ROOT,
-                        "ambition_edc", "ambition_logo.png")
-    logo_dim = {"first_page": (4.0 * cm, 0.83 * cm),
-                "later_pages": (3.0 * cm, 0.625 * cm)}
+    logo = os.path.join(settings.STATIC_ROOT, "ambition_edc", "ambition_logo.png")
+    logo_dim = {
+        "first_page": (4.0 * cm, 0.83 * cm),
+        "later_pages": (3.0 * cm, 0.625 * cm),
+    }
 
     def __init__(self, subject_identifier=None, **kwargs):
         super().__init__(**kwargs)
@@ -41,8 +42,10 @@ class AmbitionCrfPdfReport(CrfPdfReport):
             assignment = fill(self.drug_assignment, width=80)
         rows = [
             ["Subject:", self.subject_identifier],
-            ["Gender/Age:",
-                f"{self.registered_subject.get_gender_display()} {self.age}"],
+            [
+                "Gender/Age:",
+                f"{self.registered_subject.get_gender_display()} {self.age}",
+            ],
             [
                 "Study site:",
                 f"{self.registered_subject.site.id}: "

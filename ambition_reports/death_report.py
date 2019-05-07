@@ -56,8 +56,7 @@ class DeathReport(AmbitionCrfPdfReport):
         t = Table([["Section 1: Death Report"]], (18 * cm))
         self.set_table_style(t, bg_cmd=self.bg_cmd)
         story.append(t)
-        t = Table(
-            [[f"Prepared by {self.get_user(self.death_report)}."]], (18 * cm))
+        t = Table([[f"Prepared by {self.get_user(self.death_report)}."]], (18 * cm))
         self.set_table_style(t)
         story.append(t)
 
@@ -67,13 +66,11 @@ class DeathReport(AmbitionCrfPdfReport):
             ["Reference:", self.death_report.identifier],
             [
                 "Report date:",
-                self.death_report.report_datetime.strftime(
-                    "%Y-%m-%d %H:%M"),
+                self.death_report.report_datetime.strftime("%Y-%m-%d %H:%M"),
             ],
             [
                 "Death date:",
-                self.death_report.death_datetime.strftime(
-                    "%Y-%m-%d %H:%M"),
+                self.death_report.death_datetime.strftime("%Y-%m-%d %H:%M"),
             ],
             ["Study day:", self.death_report.study_day],
             ["Death as inpatient:", self.death_report.death_as_inpatient],
@@ -92,26 +89,32 @@ class DeathReport(AmbitionCrfPdfReport):
 
         row = ["Main cause of death:"]
         if self.death_report.cause_of_death == OTHER:
-            row.append(fill(
-                f"{self.death_report.get_cause_of_death_display()}: "
-                f"{self.death_report.cause_of_death_other}", width=80))
+            row.append(
+                fill(
+                    f"{self.death_report.get_cause_of_death_display()}: "
+                    f"{self.death_report.cause_of_death_other}",
+                    width=80,
+                )
+            )
         else:
             row.append(fill(self.death_report.get_cause_of_death_display()))
 
         rows.append(row)
 
         if self.death_report.cause_of_death == TUBERCULOSIS:
-            rows.append(["If cause of death is TB, site of TB disease:",
-                         self.death_report.get_tb_site_display()])
+            rows.append(
+                [
+                    "If cause of death is TB, site of TB disease:",
+                    self.death_report.get_tb_site_display(),
+                ]
+            )
 
         t = Table(rows, (4 * cm, 14 * cm))
         self.set_table_style(t, bg_cmd=self.bg_cmd)
         t.hAlign = "LEFT"
         story.append(t)
 
-        self.draw_narrative(
-            story, title="Narrative:",
-            text=self.death_report.narrative)
+        self.draw_narrative(story, title="Narrative:", text=self.death_report.narrative)
 
     def _draw_audit_trail(self, story):
         s = self.styles["line_data_small"]
@@ -131,8 +134,9 @@ class DeathReport(AmbitionCrfPdfReport):
         )
         story.append(t)
 
-        qs = DeathReportModel.history.filter(
-            id=self.death_report.id).order_by("-history_date")
+        qs = DeathReportModel.history.filter(id=self.death_report.id).order_by(
+            "-history_date"
+        )
         for obj in qs:
             username = (
                 obj.user_created if obj.history_type == "+" else obj.user_modified
@@ -143,8 +147,7 @@ class DeathReport(AmbitionCrfPdfReport):
                         Paragraph(DeathReportModel._meta.verbose_name, s),
                         Paragraph(username, s),
                         Paragraph(obj.modified.strftime("%Y-%m-%d %H:%M"), s),
-                        Paragraph(
-                            fill(self.history_change_message(obj), width=60), s),
+                        Paragraph(fill(self.history_change_message(obj), width=60), s),
                     ]
                 ],
                 (3 * cm, 3 * cm, 3 * cm, 9 * cm),
