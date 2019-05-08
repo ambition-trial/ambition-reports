@@ -12,7 +12,7 @@ from ambition_permissions.group_names import RANDO
 
 
 class AmbitionCrfPdfReport(CrfPdfReport):
-    logo = os.path.join(settings.STATIC_ROOT, "ambition_edc", "ambition_logo.png")
+
     logo_dim = {
         "first_page": (4.0 * cm, 0.83 * cm),
         "later_pages": (3.0 * cm, 0.625 * cm),
@@ -27,6 +27,10 @@ class AmbitionCrfPdfReport(CrfPdfReport):
         self.drug_assignment = RandomizationList.objects.get(
             subject_identifier=self.subject_identifier
         ).get_drug_assignment_display()
+
+    @property
+    def logo(self):
+        return os.path.join(settings.STATIC_ROOT, "ambition_edc", "ambition_logo.png")
 
     @property
     def age(self):
