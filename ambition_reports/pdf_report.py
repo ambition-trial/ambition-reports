@@ -1,19 +1,18 @@
-import os
-
+from ambition_permissions.group_names import RANDO
 from ambition_rando.models import RandomizationList
-from django.conf import settings
 from edc_registration.models import RegisteredSubject
 from edc_reports.crf_pdf_report import CrfPdfReport
-from edc_utils.age import formatted_age
+from edc_utils import formatted_age
 from reportlab.lib.units import cm
 from reportlab.platypus import Table
 from textwrap import fill
-from ambition_permissions.group_names import RANDO
 
 
 class AmbitionCrfPdfReport(CrfPdfReport):
 
-    logo_dim = {
+    logo_data = {
+        "app_label": "ambition_edc",
+        "filename": "ambition_logo.png",
         "first_page": (4.0 * cm, 0.83 * cm),
         "later_pages": (3.0 * cm, 0.625 * cm),
     }
@@ -27,10 +26,6 @@ class AmbitionCrfPdfReport(CrfPdfReport):
         self.drug_assignment = RandomizationList.objects.get(
             subject_identifier=self.subject_identifier
         ).get_drug_assignment_display()
-
-    @property
-    def logo(self):
-        return os.path.join(settings.STATIC_ROOT, "ambition_edc", "ambition_logo.png")
 
     @property
     def age(self):
