@@ -1,5 +1,6 @@
 from ambition_permissions.group_names import RANDO
 from ambition_rando.models import RandomizationList
+from ambition_subject.utils import get_weight_for_timepoint
 from edc_registration.models import RegisteredSubject
 from edc_reports.crf_pdf_report import CrfPdfReport
 from edc_utils import formatted_age
@@ -36,6 +37,11 @@ class AmbitionCrfPdfReport(CrfPdfReport):
 
     def draw_demographics(self, story, **kwargs):
 
+        model_obj = getattr(self, self.model_attr)
+        weight = get_weight_for_timepoint(
+            subject_identifier=self.subject_identifier,
+            reference_dt=model_obj.report_datetime,
+        )
         assignment = "*****************"
         if self.request.user.groups.filter(name=RANDO).exists():
             assignment = fill(self.drug_assignment, width=80)
@@ -45,6 +51,7 @@ class AmbitionCrfPdfReport(CrfPdfReport):
                 "Gender/Age:",
                 f"{self.registered_subject.get_gender_display()} {self.age}",
             ],
+            ["Weight:", f"{weight} kg"],
             [
                 "Study site:",
                 f"{self.registered_subject.site.id}: "

@@ -88,16 +88,16 @@ class DeathReport(AmbitionCrfPdfReport):
         rows = []
 
         row = ["Main cause of death:"]
-        if self.death_report.cause_of_death == OTHER:
+        if self.death_report.cause_of_death.short_name == OTHER:
             row.append(
                 fill(
-                    f"{self.death_report.get_cause_of_death_display()}: "
+                    f"{self.death_report.cause_of_death.name}: "
                     f"{self.death_report.cause_of_death_other}",
                     width=80,
                 )
             )
         else:
-            row.append(fill(self.death_report.get_cause_of_death_display()))
+            row.append(fill(self.death_report.cause_of_death.name))
 
         rows.append(row)
 
