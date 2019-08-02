@@ -75,9 +75,7 @@ class AEReport(AmbitionCrfPdfReport):
 
     def _draw_ae_overview(self, story):
         # basics
-        classification_text = fill(
-            self.ae_initial.get_ae_classification_display(), width=80
-        )
+        classification_text = fill(self.ae_initial.ae_classification.name, width=80)
         if self.ae_initial.ae_classification == OTHER:
             classification_text = fill(
                 f"{classification_text}: {self.ae_initial.ae_classification_other}",
