@@ -2,6 +2,7 @@ from ambition_rando.tests import AmbitionTestCaseMixin
 from django.contrib.auth.models import User
 from django.test import TestCase, tag
 from django.test.client import RequestFactory
+from edc_adverse_event.models import AeClassification
 from edc_list_data.site_list_data import site_list_data
 from model_mommy import mommy
 
@@ -29,8 +30,11 @@ class TestReports(AmbitionTestCaseMixin, TestCase):
         rf = RequestFactory()
         request = rf.get("/")
         request.user = self.user
+        ae_classification = AeClassification.objects.all()[0]
         ae_initial = mommy.make_recipe(
-            "ambition_ae.aeinitial", subject_identifier=self.subject_identifier
+            "ambition_ae.aeinitial",
+            subject_identifier=self.subject_identifier,
+            ae_classification=ae_classification,
         )
 
         report = AEReport(
