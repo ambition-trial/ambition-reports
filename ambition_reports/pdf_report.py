@@ -1,12 +1,22 @@
 from ambition_permissions.group_names import RANDO
 from ambition_rando.models import RandomizationList
-from ambition_subject.utils import get_weight_for_timepoint
+from ambition_subject.models.patient_history import PatientHistory
 from edc_registration.models import RegisteredSubject
 from edc_reports.crf_pdf_report import CrfPdfReport
 from edc_utils import formatted_age
 from reportlab.lib.units import cm
 from reportlab.platypus import Table
 from textwrap import fill
+
+
+def get_weight_for_timepoint(subject_identifier=None, reference_dt=None):
+    qs = PatientHistory.objects.filter(
+        subject_visit__appointment__subject_identifier=subject_identifier,
+        report_datetime__lte=reference_dt,
+    ).order_by("-report_datetime")
+    if qs:
+        return qs[0].weight
+    return None
 
 
 class AmbitionCrfPdfReport(CrfPdfReport):
