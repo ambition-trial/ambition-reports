@@ -21,6 +21,8 @@ DEFAULT_SETTINGS = DefaultTestSettings(
     SUBJECT_CONSENT_MODEL="ambition_subject.subjectconsent",
     SUBJECT_VISIT_MODEL="ambition_subject.subjectvisit",
     SUBJECT_REQUISITION_MODEL="ambition_subject.subjectrequisition",
+    ADVERSE_EVENT_ADMIN_SITE="ambition_ae_admin",
+    ADVERSE_EVENT_APP_LABEL="ambition_ae",
     RANDOMIZATION_LIST_PATH=join(
         base_dir, app_name, "tests", "test_randomization_list.csv"),
     INSTALLED_APPS=[
@@ -40,7 +42,10 @@ DEFAULT_SETTINGS = DefaultTestSettings(
         "edc_appointment.apps.AppConfig",
         "edc_action_item.apps.AppConfig",
         "edc_adverse_event.apps.AppConfig",
+        "edc_auth.apps.AppConfig",
         "edc_consent.apps.AppConfig",
+        "edc_dashboard.apps.AppConfig",
+        "edc_data_manager.apps.AppConfig",
         "edc_device.apps.AppConfig",
         "edc_identifier.apps.AppConfig",
         "edc_list_data.apps.AppConfig",

@@ -34,9 +34,9 @@ class AmbitionCrfPdfReport(CrfPdfReport):
         self.registered_subject = RegisteredSubject.objects.get(
             subject_identifier=self.subject_identifier
         )
-        self.drug_assignment = RandomizationList.objects.get(
+        self.assignment = RandomizationList.objects.get(
             subject_identifier=self.subject_identifier
-        ).get_drug_assignment_display()
+        ).get_assignment_display()
 
     @property
     def age(self):
@@ -54,7 +54,7 @@ class AmbitionCrfPdfReport(CrfPdfReport):
         )
         assignment = "*****************"
         if self.request.user.groups.filter(name=RANDO).exists():
-            assignment = fill(self.drug_assignment, width=80)
+            assignment = fill(self.assignment, width=80)
         rows = [
             ["Subject:", self.subject_identifier],
             [
