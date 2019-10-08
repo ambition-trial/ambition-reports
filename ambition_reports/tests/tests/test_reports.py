@@ -6,7 +6,7 @@ from edc_adverse_event.models import AeClassification
 from edc_list_data.site_list_data import site_list_data
 from model_mommy import mommy
 
-from ...ae_report import AEReport
+from ...ae_report import AeReport
 
 
 class TestReports(AmbitionTestCaseMixin, TestCase):
@@ -37,7 +37,7 @@ class TestReports(AmbitionTestCaseMixin, TestCase):
             ae_classification=ae_classification,
         )
 
-        report = AEReport(
+        report = AeReport(
             ae_initial=ae_initial,
             subject_identifier=ae_initial.subject_identifier,
             user=request.user,
