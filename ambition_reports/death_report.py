@@ -1,7 +1,7 @@
 import inflect
 
 from ambition_prn.constants import TUBERCULOSIS
-from ambition_prn.models import DeathReport as DeathReportModel
+from ambition_ae.models import DeathReport as DeathReportModel
 from django.contrib.auth import get_user_model
 from edc_constants.constants import OTHER
 from reportlab.lib import colors
@@ -88,7 +88,7 @@ class DeathReport(AmbitionCrfPdfReport):
         rows = []
 
         row = ["Main cause of death:"]
-        if self.death_report.cause_of_death.short_name == OTHER:
+        if self.death_report.cause_of_death.name == OTHER:
             row.append(
                 fill(
                     f"{self.death_report.cause_of_death.name}: "
