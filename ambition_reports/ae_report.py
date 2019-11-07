@@ -1,9 +1,9 @@
-from ambition_subject.models.week2.week2 import Week2
 from ambition_subject.models.patient_history import PatientHistory
-from reportlab.platypus.tables import Table
-from reportlab.lib.units import cm
+from ambition_subject.models.week2.week2 import Week2
 from django.core.exceptions import ObjectDoesNotExist
 from edc_adverse_event.pdf_reports import AeReport as BaseAeReport
+from reportlab.lib.units import cm
+from reportlab.platypus.tables import Table
 
 
 class AeReport(BaseAeReport):
