@@ -1,6 +1,6 @@
-from ambition_permissions.group_names import RANDO
 from ambition_rando.models import RandomizationList
 from ambition_subject.models.patient_history import PatientHistory
+from edc_auth.group_names import RANDO
 from edc_registration.models import RegisteredSubject
 from edc_reports.crf_pdf_report import CrfPdfReport
 from edc_utils import formatted_age
